@@ -1,8 +1,8 @@
-﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="WebApplication2.About" %>
+﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="FileUploadPrototype.About" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <center>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#MyPopup">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#MyPopup">
             Open Modal</button>
     </center>
     <!-- Modal Popup -->

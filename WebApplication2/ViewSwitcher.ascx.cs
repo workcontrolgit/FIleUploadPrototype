@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls.Resolvers;
 
-namespace WebApplication2
+namespace FileUploadPrototype
 {
     public partial class ViewSwitcher : System.Web.UI.UserControl
     {
