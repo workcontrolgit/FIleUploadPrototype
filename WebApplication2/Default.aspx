@@ -4,11 +4,11 @@
 
     <div class="container">
         <div class="btn-group">
-            <asp:Button ID="btnSubmit" class="btn-info" runat="server" Text="File Upload"
-                OnClick="btnSubmit_Click"></asp:Button>
+            <asp:Button ID="btnFileUpload" class="btn-info" runat="server" Text="File Upload"
+                OnClick="btnFileUpload_Click"></asp:Button>
         </div>
         <div class="row">
-            <asp:Label runat="server" CssClass="text-success" id="StatusLabel" text="Status: " /> 
+            <asp:Label runat="server" CssClass="text-success" ID="StatusLabel" Text="Status: " />
         </div>
     </div>
 
@@ -26,17 +26,25 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                             <asp:Label ID="lblModalBody" runat="server" Text="">Type:</asp:Label>
-                            <asp:TextBox ID="txtFileType" runat="server" Text="PDAT Form"></asp:TextBox>
-                                <small id="uploadType" class="form-text text-muted">Specify a file type.</small>
+                                <asp:Label ID="lblModalBody" runat="server">Description:</asp:Label>
+                                <asp:TextBox ID="txtDescription" runat="server"></asp:TextBox>
+                                <small id="uploadDescription" class="form-text text-muted">Enter a maximum 100 characters</small>
 
-                            <asp:RequiredFieldValidator CssClass="text-danger" ControlToValidate="txtFileType" ID="rfvFileType" 
-                                runat="server" ErrorMessage="File Type is required" Enabled="false" Display="Dynamic"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator CssClass="text-danger" ControlToValidate="txtDescription" ID="rfvDescription"
+                                    runat="server" ErrorMessage="Description is required" Enabled="false" Display="Dynamic"></asp:RequiredFieldValidator>
+<asp:RegularExpressionValidator CssClass="text-danger" Display = "Dynamic" ControlToValidate = "txtDescription" ID="revDescription" ValidationExpression = "^[\s\S]{0,100}$" runat="server" ErrorMessage="Maximum 100 characters allowed."></asp:RegularExpressionValidator>
                             </div>
                             <div class="form-group">
                                 <asp:Label ID="lblFileUpload" runat="server" Text=""></asp:Label>
-                                <asp:FileUpload class="form-control-file" ID="fuSelectFile" runat="server" aria-describedby="uploadHelp" placeholder="Enter email" />
-                                <small id="uploadHelp" class="form-text text-muted">Select a file on your computer to upload.</small>
+                                <asp:FileUpload class="form-control-file" ID="fuDocument" runat="server" aria-describedby="uploadHelp" placeholder="Enter email" />
+                                <small id="uploadHelp" class="form-text text-muted">Choose a file on your computer to upload.</small>
+        <asp:RequiredFieldValidator CssClass="text-danger"
+             ID="rfvFileSelection"
+             runat="server"
+             ControlToValidate="fuDocument"
+             ErrorMessage="Choose File is required" Enabled="false"
+             >
+        </asp:RequiredFieldValidator> 
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace FileUploadPrototype
 {
@@ -14,12 +10,11 @@ namespace FileUploadPrototype
         {
 
         }
-        protected void btnSubmit_Click(object sender, EventArgs e)
+        protected void btnFileUpload_Click(object sender, EventArgs e)
         {
             lblModalTitle.Text = "File Upload";
-            lblModalBody.Text = "Type";
-            txtFileType.Text = "PDAT Form";
-            rfvFileType.Enabled = true;
+            rfvDescription.Enabled = true;
+            rfvFileSelection.Enabled = true;
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);
             upModal.Update();
 
@@ -29,12 +24,23 @@ namespace FileUploadPrototype
         {
             try
             {
-                if (fuSelectFile.HasFile)
+                if (fuDocument.HasFile)
                 {
                     try
                     {
-                        string filename = Path.GetFileName(fuSelectFile.FileName);
-                        fuSelectFile.SaveAs(Server.MapPath("~/App_Data/") + filename);
+                        // get file name with extension
+                        string fileNameWithExtension = Path.GetFileName(fuDocument.PostedFile.FileName);
+                        // get file name without extension  
+                        string fileName = Path.GetFileNameWithoutExtension(fileNameWithExtension);
+                        // get file extension (pdf, jpg, etc.)
+                        string fileExtension = Path.GetExtension(fileNameWithExtension);
+                        // get file content type  
+                        string fileContentType = fuDocument.PostedFile.ContentType;
+                        // get file size  
+                        int fileSize = fuDocument.PostedFile.ContentLength;
+
+
+                        fuDocument.SaveAs(Server.MapPath("~/App_Data/") + fileNameWithExtension);
                         StatusLabel.Text = "Upload status: File uploaded!";
                     }
                     catch (Exception ex)
@@ -54,7 +60,8 @@ namespace FileUploadPrototype
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            rfvFileType.Enabled = false;
+            rfvDescription.Enabled = false;
+            rfvFileSelection.Enabled = false;
         }
     }
 }

@@ -15,13 +15,13 @@ namespace FileUploadPrototype
     {
 
         /// <summary>
-        /// btnSubmit control.
+        /// btnFileUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.Button btnFileUpload;
 
         /// <summary>
         /// StatusLabel control.
@@ -60,22 +60,31 @@ namespace FileUploadPrototype
         protected global::System.Web.UI.WebControls.Label lblModalBody;
 
         /// <summary>
-        /// txtFileType control.
+        /// txtDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFileType;
+        protected global::System.Web.UI.WebControls.TextBox txtDescription;
 
         /// <summary>
-        /// rfvFileType control.
+        /// rfvDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFileType;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDescription;
+
+        /// <summary>
+        /// revDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revDescription;
 
         /// <summary>
         /// lblFileUpload control.
@@ -87,13 +96,22 @@ namespace FileUploadPrototype
         protected global::System.Web.UI.WebControls.Label lblFileUpload;
 
         /// <summary>
-        /// fuSelectFile control.
+        /// fuDocument control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuSelectFile;
+        protected global::System.Web.UI.WebControls.FileUpload fuDocument;
+
+        /// <summary>
+        /// rfvFileSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFileSelection;
 
         /// <summary>
         /// btnUpload control.
