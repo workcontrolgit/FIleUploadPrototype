@@ -1,18 +1,13 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebApplication2.Contact" %>
+﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="FileUploadPrototype.Contact" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %>.</h2>
-    <h3>Your contact page.</h3>
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
+<asp:content ID="cHead" runat="server" ContentPlaceHolderID="cphHead">
+ <link rel="stylesheet" type="text/css" href="Content/toastr.css" />
+ <script type="text/javascript" src="Scripts/toastr.js"></script>
+</asp:content>
 
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
-    <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
+
+    <h4>Contact page</h4>
+
 </asp:Content>

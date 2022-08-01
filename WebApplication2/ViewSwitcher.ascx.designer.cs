@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication2 {
+namespace FileUploadPrototype {
     
     
     public partial class ViewSwitcher {

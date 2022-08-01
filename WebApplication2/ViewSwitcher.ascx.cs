@@ -1,13 +1,9 @@
+using Microsoft.AspNet.FriendlyUrls.Resolvers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Routing;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.FriendlyUrls.Resolvers;
 
-namespace WebApplication2
+namespace FileUploadPrototype
 {
     public partial class ViewSwitcher : System.Web.UI.UserControl
     {
