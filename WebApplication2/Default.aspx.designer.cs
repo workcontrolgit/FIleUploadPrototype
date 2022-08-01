@@ -33,13 +33,13 @@ namespace FileUploadPrototype
         protected global::System.Web.UI.WebControls.Label StatusLabel;
 
         /// <summary>
-        /// upModal control.
+        /// upFileUploadModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upModal;
+        protected global::System.Web.UI.UpdatePanel upFileUploadModal;
 
         /// <summary>
         /// lblModalTitle control.
@@ -112,6 +112,33 @@ namespace FileUploadPrototype
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFileSelection;
+
+        /// <summary>
+        /// revFileType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revFileType;
+
+        /// <summary>
+        /// cvFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvFileUpload;
+
+        /// <summary>
+        /// vsFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary vsFileUpload;
 
         /// <summary>
         /// btnUpload control.

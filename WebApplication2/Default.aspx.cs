@@ -1,6 +1,8 @@
-﻿using System;
+﻿using FileUploadPrototype.Models;
+using System;
 using System.IO;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace FileUploadPrototype
 {
@@ -12,11 +14,13 @@ namespace FileUploadPrototype
         }
         protected void btnFileUpload_Click(object sender, EventArgs e)
         {
+            //set the modal form title via code behind
             lblModalTitle.Text = "File Upload";
-            rfvDescription.Enabled = true;
-            rfvFileSelection.Enabled = true;
+            //enable validation of controls on the file upload form
+            SetValidation(true);
+            //display modal via code on the server side
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);
-            upModal.Update();
+            upFileUploadModal.Update();
 
         }
 
@@ -39,13 +43,26 @@ namespace FileUploadPrototype
                         // get file size  
                         int fileSize = fuDocument.PostedFile.ContentLength;
 
+                        var uploadFile = new FileUploadInfo();
+                        uploadFile.FileName = Path.GetFileName(fuDocument.PostedFile.FileName);
+                        uploadFile.ContentType = fuDocument.PostedFile.ContentType;
+                        uploadFile.ContentLength = fuDocument.PostedFile.ContentLength;
+
+                        string tempFileExtension = uploadFile.GetFileExtension();
+
 
                         fuDocument.SaveAs(Server.MapPath("~/App_Data/") + fileNameWithExtension);
-                        StatusLabel.Text = "Upload status: File uploaded!";
+                        StatusLabel.Text = String.Format("File uploaded : {0}", uploadFile.FileName);
+                        // toaster
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script> success('File uploaded')</script>", false);
+                        // reset validation controls
+                        SetValidation(false);
+
                     }
                     catch (Exception ex)
                     {
                         StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script> err('File not uploaded')</script>", false);
                     }
                 }
 
@@ -60,8 +77,29 @@ namespace FileUploadPrototype
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            rfvDescription.Enabled = false;
-            rfvFileSelection.Enabled = false;
+            SetValidation(false);
+        }
+        protected void SetValidation(bool value)
+        {
+            rfvDescription.Enabled = value;
+            rfvFileSelection.Enabled = value;
+            revFileType.Enabled = value;
+            cvFileUpload.Enabled = value;
+        }
+
+        protected void checkfilesize(object source, ServerValidateEventArgs args)
+        {
+            string data = args.Value;
+            args.IsValid = false;
+            double filesize = fuDocument.FileContent.Length;
+            if (filesize > 50000)
+            {
+                args.IsValid = false;
+            }
+            else
+            {
+                args.IsValid = true;
+            }
         }
     }
 }

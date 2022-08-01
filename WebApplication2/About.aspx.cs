@@ -9,9 +9,5 @@ namespace FileUploadPrototype
         {
 
         }
-        protected void OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#MyPopup').modal('show')", true);
-        }
     }
 }
