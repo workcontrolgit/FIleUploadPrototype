@@ -24,6 +24,33 @@ namespace FileUploadPrototype
         protected global::System.Web.UI.WebControls.Button btnFileUpload;
 
         /// <summary>
+        /// litFileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litFileName;
+
+        /// <summary>
+        /// litFileExtension control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litFileExtension;
+
+        /// <summary>
+        /// litFileSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litFileSize;
+
+        /// <summary>
         /// StatusLabel control.
         /// </summary>
         /// <remarks>

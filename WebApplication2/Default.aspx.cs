@@ -10,8 +10,8 @@ namespace FileUploadPrototype
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
+
         protected void btnFileUpload_Click(object sender, EventArgs e)
         {
             //set the modal form title via code behind
@@ -21,7 +21,6 @@ namespace FileUploadPrototype
             //display modal via code on the server side
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);
             upFileUploadModal.Update();
-
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)
@@ -34,13 +33,13 @@ namespace FileUploadPrototype
                     {
                         // get file name with extension
                         string fileNameWithExtension = Path.GetFileName(fuDocument.PostedFile.FileName);
-                        // get file name without extension  
+                        // get file name without extension
                         string fileName = Path.GetFileNameWithoutExtension(fileNameWithExtension);
                         // get file extension (pdf, jpg, etc.)
                         string fileExtension = Path.GetExtension(fileNameWithExtension);
-                        // get file content type  
+                        // get file content type
                         string fileContentType = fuDocument.PostedFile.ContentType;
-                        // get file size  
+                        // get file size
                         int fileSize = fuDocument.PostedFile.ContentLength;
 
                         var uploadFile = new FileUploadInfo();
@@ -50,6 +49,9 @@ namespace FileUploadPrototype
 
                         string tempFileExtension = uploadFile.GetFileExtension();
 
+                        litFileName.Text = uploadFile.GetFileNameWithoutExtension();
+                        litFileExtension.Text = uploadFile.GetFileExtension();
+                        litFileSize.Text = uploadFile.ContentLength.ToString();
 
                         fuDocument.SaveAs(Server.MapPath("~/App_Data/") + fileNameWithExtension);
                         StatusLabel.Text = String.Format("File uploaded : {0}", uploadFile.FileName);
@@ -57,7 +59,6 @@ namespace FileUploadPrototype
                         ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script> success('File uploaded')</script>", false);
                         // reset validation controls
                         SetValidation(false);
-
                     }
                     catch (Exception ex)
                     {
@@ -65,20 +66,18 @@ namespace FileUploadPrototype
                         ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script> err('File not uploaded')</script>", false);
                     }
                 }
-
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             SetValidation(false);
         }
+
         protected void SetValidation(bool value)
         {
             rfvDescription.Enabled = value;

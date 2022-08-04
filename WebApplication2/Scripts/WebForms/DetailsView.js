@@ -15,7 +15,7 @@ function DetailsView_createPropertyString() {
 function DetailsView_setStateValue() {
     this.stateField.value = this.createPropertyString();
 }
-function DetailsView_OnCallback (result, context) {
+function DetailsView_OnCallback(result, context) {
     var value = new String(result);
     var valsArray = value.split("|");
     var innerHtml = valsArray[2];

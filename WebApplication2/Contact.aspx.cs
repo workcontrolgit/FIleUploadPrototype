@@ -13,7 +13,5 @@ namespace FileUploadPrototype
         {
             ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script> error('Item added to Cart')</script>", false);
         }
-
-
     }
 }

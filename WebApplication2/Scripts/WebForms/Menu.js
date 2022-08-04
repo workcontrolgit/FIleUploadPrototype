@@ -140,7 +140,7 @@ function Menu_FindPrevious(item) {
 function Menu_FindSubMenu(item) {
     var tr = item.parentNode.parentNode.parentNode.parentNode.parentNode;
     if (!tr.id) {
-        tr=tr.parentNode;
+        tr = tr.parentNode;
     }
     return WebForm_GetElementById(tr.id + "Items");
 }
@@ -172,7 +172,7 @@ function Menu_GetData(item) {
         try {
             item.data = eval(menu.id + "_Data");
         }
-        catch(e) {}
+        catch (e) { }
     }
     return item.data;
 }
@@ -182,14 +182,14 @@ function Menu_HideItems(items) {
         document.body.__oldOnClick = null;
     }
     Menu_ClearInterval();
-    if (!items || ((typeof(items.tagName) == "undefined") && (items instanceof Event))) {
+    if (!items || ((typeof (items.tagName) == "undefined") && (items instanceof Event))) {
         items = __rootMenuItem;
     }
     var table = items;
-    if ((typeof(table) == "undefined") || (table == null) || !table.tagName || (table.tagName.toLowerCase() != "table")) {
+    if ((typeof (table) == "undefined") || (table == null) || !table.tagName || (table.tagName.toLowerCase() != "table")) {
         table = WebForm_GetElementByTagName(table, "TABLE");
     }
-    if ((typeof(table) == "undefined") || (table == null) || !table.tagName || (table.tagName.toLowerCase() != "table")) {
+    if ((typeof (table) == "undefined") || (table == null) || !table.tagName || (table.tagName.toLowerCase() != "table")) {
         return;
     }
     var rows = table.rows ? table.rows : table.firstChild.rows;
@@ -202,7 +202,7 @@ function Menu_HideItems(items) {
     }
     var i, child, nextLevel;
     if (isVertical) {
-        for(i = 0; i < rows.length; i++) {
+        for (i = 0; i < rows.length; i++) {
             if (rows[i].id) {
                 child = WebForm_GetElementById(rows[i].id + "Items");
                 if (child) {
@@ -218,7 +218,7 @@ function Menu_HideItems(items) {
         }
     }
     else if (rows[0]) {
-        for(i = 0; i < rows[0].cells.length; i++) {
+        for (i = 0; i < rows[0].cells.length; i++) {
             if (rows[0].cells[i].id) {
                 child = WebForm_GetElementById(rows[0].cells[i].id + "Items");
                 if (child) {
@@ -239,7 +239,7 @@ function Menu_HideItems(items) {
 }
 function Menu_HoverDisabled(item) {
     var node = (item.tagName.toLowerCase() == "td") ?
-        item:
+        item :
         item.cells[0];
     var data = Menu_GetData(item);
     if (!data) return;
@@ -247,11 +247,11 @@ function Menu_HoverDisabled(item) {
     if (data.disappearAfter >= 200) {
         __disappearAfter = data.disappearAfter;
     }
-    Menu_Expand(node, data.horizontalOffset, data.verticalOffset); 
+    Menu_Expand(node, data.horizontalOffset, data.verticalOffset);
 }
 function Menu_HoverDynamic(item) {
     var node = (item.tagName.toLowerCase() == "td") ?
-        item:
+        item :
         item.cells[0];
     var data = Menu_GetData(item);
     if (!data) return;
@@ -268,11 +268,11 @@ function Menu_HoverDynamic(item) {
     if (data.disappearAfter >= 200) {
         __disappearAfter = data.disappearAfter;
     }
-    Menu_Expand(node, data.horizontalOffset, data.verticalOffset); 
+    Menu_Expand(node, data.horizontalOffset, data.verticalOffset);
 }
 function Menu_HoverRoot(item) {
     var node = (item.tagName.toLowerCase() == "td") ?
-        item:
+        item :
         item.cells[0];
     var data = Menu_GetData(item);
     if (!data) {
@@ -295,7 +295,7 @@ function Menu_HoverStatic(item) {
     var data = Menu_GetData(item);
     if (!data) return;
     __disappearAfter = data.disappearAfter;
-    Menu_Expand(node, data.horizontalOffset, data.verticalOffset); 
+    Menu_Expand(node, data.horizontalOffset, data.verticalOffset);
 }
 function Menu_IsHorizontal(item) {
     if (item) {
@@ -320,7 +320,7 @@ function Menu_Key(item) {
         item = event.currentTarget;
     }
     else {
-        event = window.event;        
+        event = window.event;
     }
     var key = (event ? event.keyCode : -1);
     var data = Menu_GetData(item);
@@ -344,7 +344,7 @@ function Menu_Key(item) {
     if ((!horizontal && key == 40) || (horizontal && key == 39)) {
         if (horizontal) {
             var subMenu = Menu_FindSubMenu(a);
-            if (subMenu && subMenu.style && subMenu.style.visibility && 
+            if (subMenu && subMenu.style && subMenu.style.visibility &&
                 subMenu.style.visibility.toLowerCase() == "hidden") {
                 Menu_Expand(a, data.horizontalOffset, data.verticalOffset, true);
                 event.cancelBubble = true;
@@ -449,7 +449,7 @@ function Menu_ResetSiblings(item) {
     }
     var i, child, childNode;
     if (isVertical) {
-        for(i = 0; i < table.rows.length; i++) {
+        for (i = 0; i < table.rows.length; i++) {
             childNode = table.rows[i];
             if (childNode != item) {
                 child = WebForm_GetElementById(childNode.id + "Items");
@@ -460,7 +460,7 @@ function Menu_ResetSiblings(item) {
         }
     }
     else {
-        for(i = 0; i < table.rows[0].cells.length; i++) {
+        for (i = 0; i < table.rows[0].cells.length; i++) {
             childNode = table.rows[0].cells[i];
             if (childNode != item) {
                 child = WebForm_GetElementById(childNode.id + "Items");
@@ -483,7 +483,7 @@ function Menu_ResetTopMenus(table, doNotReset, level, up) {
     else {
         if (level == 0 && table != doNotReset) {
             if (table.rows[0].id) {
-                for(i = 0; i < table.rows.length; i++) {
+                for (i = 0; i < table.rows.length; i++) {
                     childNode = table.rows[i];
                     child = WebForm_GetElementById(childNode.id + "Items");
                     if (child) {
@@ -492,7 +492,7 @@ function Menu_ResetTopMenus(table, doNotReset, level, up) {
                 }
             }
             else {
-                for(i = 0; i < table.rows[0].cells.length; i++) {
+                for (i = 0; i < table.rows[0].cells.length; i++) {
                     childNode = table.rows[0].cells[i];
                     child = WebForm_GetElementById(childNode.id + "Items");
                     if (child) {
@@ -530,7 +530,7 @@ function Menu_SetRoot(item) {
 }
 function Menu_Unhover(item) {
     var node = (item.tagName.toLowerCase() == "td") ?
-        item:
+        item :
         item.cells[0];
     var nodeTable = WebForm_GetElementByTagName(node, "table");
     if (nodeTable.hoverClass) {
@@ -612,7 +612,7 @@ function PopOut_Position(panel, hideScrollers) {
     var relTable = WebForm_GetElementByTagName(rel, "TABLE");
     var relCoordinates = WebForm_GetElementPosition(relTable ? relTable : rel);
     var panelCoordinates = WebForm_GetElementPosition(panel);
-    var panelHeight = ((typeof(panel.physicalHeight) != "undefined") && (panel.physicalHeight != null)) ?
+    var panelHeight = ((typeof (panel.physicalHeight) != "undefined") && (panel.physicalHeight != null)) ?
         panel.physicalHeight :
         panelCoordinates.height;
     panel.physicalHeight = panelHeight;
@@ -628,7 +628,7 @@ function PopOut_Position(panel, hideScrollers) {
     var overflowElement = WebForm_GetElementById("__overFlowElement");
     if (!overflowElement) {
         overflowElement = document.createElement("img");
-        overflowElement.id="__overFlowElement";
+        overflowElement.id = "__overFlowElement";
         WebForm_SetElementWidth(overflowElement, 1);
         document.body.appendChild(overflowElement);
     }
@@ -651,15 +651,15 @@ function PopOut_Position(panel, hideScrollers) {
     }
     var scrollTop = 0;
     var scrollLeft = 0;
-    if (typeof(window.pageYOffset) != "undefined") {
+    if (typeof (window.pageYOffset) != "undefined") {
         scrollTop = window.pageYOffset;
         scrollLeft = window.pageXOffset;
     }
-    else if (document.documentElement && (typeof(document.documentElement.scrollTop) != "undefined")) {
+    else if (document.documentElement && (typeof (document.documentElement.scrollTop) != "undefined")) {
         scrollTop = document.documentElement.scrollTop;
         scrollLeft = document.documentElement.scrollLeft;
     }
-    else if (document.body && (typeof(document.body.scrollTop) != "undefined")) {
+    else if (document.body && (typeof (document.body.scrollTop) != "undefined")) {
         scrollTop = document.body.scrollTop;
         scrollLeft = document.body.scrollLeft;
     }
@@ -668,7 +668,7 @@ function PopOut_Position(panel, hideScrollers) {
     var bottomWindowBorder = clientHeight + scrollTop;
     var rightWindowBorder = clientWidth + scrollLeft;
     var position = panel.pos;
-    if ((typeof(position) == "undefined") || (position == null) || (position == "")) {
+    if ((typeof (position) == "undefined") || (position == null) || (position == "")) {
         position = (WebForm_GetElementDir(rel) == "rtl" ? "middleleft" : "middleright");
     }
     position = position.toLowerCase();
@@ -682,10 +682,10 @@ function PopOut_Position(panel, hideScrollers) {
     var overflow;
     if (position.indexOf("top") != -1) {
         y -= panelHeight;
-        WebForm_SetElementY(panel, y); 
+        WebForm_SetElementY(panel, y);
         if (y < -panelParentCoordinates.y) {
             y = -panelParentCoordinates.y;
-            WebForm_SetElementY(panel, y); 
+            WebForm_SetElementY(panel, y);
             if (panelHeight > clientHeight - 2) {
                 clip = true;
                 PopOut_SetPanelHeight(panel, clientHeight - 2);
@@ -695,15 +695,15 @@ function PopOut_Position(panel, hideScrollers) {
     else {
         if (position.indexOf("bottom") != -1) {
             y += relCoordinates.height;
-            WebForm_SetElementY(panel, y); 
+            WebForm_SetElementY(panel, y);
         }
         overflow = y + panelParentCoordinates.y + panelHeight - bottomWindowBorder;
         if (overflow > 0) {
             y -= overflow;
-            WebForm_SetElementY(panel, y); 
+            WebForm_SetElementY(panel, y);
             if (y < -panelParentCoordinates.y) {
                 y = 2 - panelParentCoordinates.y + scrollTop;
-                WebForm_SetElementY(panel, y); 
+                WebForm_SetElementY(panel, y);
                 clip = true;
                 PopOut_SetPanelHeight(panel, clientHeight - 2);
             }
@@ -716,7 +716,7 @@ function PopOut_Position(panel, hideScrollers) {
     if (panel.offsetParent) {
         panelParentOffsetY = WebForm_GetElementPosition(panel.offsetParent).y;
     }
-    var panelY = ((typeof(panel.originY) != "undefined") && (panel.originY != null)) ?
+    var panelY = ((typeof (panel.originY) != "undefined") && (panel.originY != null)) ?
         panel.originY :
         y - panelParentOffsetY;
     panel.originY = panelY;

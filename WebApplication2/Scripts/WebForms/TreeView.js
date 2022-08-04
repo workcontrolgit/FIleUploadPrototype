@@ -61,7 +61,7 @@ function TreeView_PopulateNode(data, index, node, selectNode, selectImageNode, l
 function TreeView_ProcessNodeData(result, context) {
     var treeNode = context.node;
     if (result.length > 0) {
-        var ci =  result.indexOf("|", 0);
+        var ci = result.indexOf("|", 0);
         context.data.lastIndex = result.substring(0, ci);
         ci = result.indexOf("|", ci + 1);
         var newExpandState = result.substring(context.data.lastIndex.length + 1, ci);
@@ -73,7 +73,7 @@ function TreeView_ProcessNodeData(result, context) {
             newDiv.innerHTML = chunk;
             table = WebForm_GetParentByTagName(treeNode, "TABLE");
             newChildren = null;
-            if ((typeof(table.nextSibling) == "undefined") || (table.nextSibling == null)) {
+            if ((typeof (table.nextSibling) == "undefined") || (table.nextSibling == null)) {
                 table.parentNode.insertBefore(newDiv.firstChild, table.nextSibling);
                 newChildren = table.previousSibling;
             }
@@ -89,16 +89,16 @@ function TreeView_ProcessNodeData(result, context) {
             table.insertAdjacentHTML("afterEnd", chunk);
             newChildren = document.all[treeNode.id + "Nodes"];
         }
-        if ((typeof(newChildren) != "undefined") && (newChildren != null)) {
+        if ((typeof (newChildren) != "undefined") && (newChildren != null)) {
             TreeView_ToggleNode(context.data, context.index, treeNode, context.lineType, newChildren);
             treeNode.href = document.getElementById ?
                 "javascript:TreeView_ToggleNode(" + context.data.name + "," + context.index + ",document.getElementById('" + treeNode.id + "'),'" + context.lineType + "',document.getElementById('" + newChildren.id + "'))" :
                 "javascript:TreeView_ToggleNode(" + context.data.name + "," + context.index + "," + treeNode.id + ",'" + context.lineType + "'," + newChildren.id + ")";
-            if ((typeof(context.selectNode) != "undefined") && (context.selectNode != null) && context.selectNode.href &&
+            if ((typeof (context.selectNode) != "undefined") && (context.selectNode != null) && context.selectNode.href &&
                 (context.selectNode.href.indexOf("javascript:TreeView_PopulateNode", 0) == 0)) {
                 context.selectNode.href = treeNode.href;
             }
-            if ((typeof(context.selectImageNode) != "undefined") && (context.selectImageNode != null) && context.selectNode.href &&
+            if ((typeof (context.selectImageNode) != "undefined") && (context.selectImageNode != null) && context.selectNode.href &&
                 (context.selectImageNode.href.indexOf("javascript:TreeView_PopulateNode", 0) == 0)) {
                 context.selectImageNode.href = treeNode.href;
             }
@@ -107,7 +107,7 @@ function TreeView_ProcessNodeData(result, context) {
     }
     else {
         var img = treeNode.childNodes ? treeNode.childNodes[0] : treeNode.children[0];
-        if ((typeof(img) != "undefined") && (img != null)) {
+        if ((typeof (img) != "undefined") && (img != null)) {
             var lineType = context.lineType;
             if (lineType == "l") {
                 img.src = context.data.images[13];
@@ -129,8 +129,8 @@ function TreeView_ProcessNodeData(result, context) {
             }
             else {
                 pe = treeNode.parentElement;
-                treeNode.style.visibility="hidden";
-                treeNode.style.display="none";
+                treeNode.style.visibility = "hidden";
+                treeNode.style.display = "none";
                 pe.insertAdjacentElement("afterBegin", img);
             }
         }
@@ -140,11 +140,11 @@ function TreeView_SelectNode(data, node, nodeId) {
     if (!data) {
         return;
     }
-    if ((typeof(data.selectedClass) != "undefined") && (data.selectedClass != null)) {
+    if ((typeof (data.selectedClass) != "undefined") && (data.selectedClass != null)) {
         var id = data.selectedNodeID.value;
         if (id.length > 0) {
             var selectedNode = document.getElementById(id);
-            if ((typeof(selectedNode) != "undefined") && (selectedNode != null)) {
+            if ((typeof (selectedNode) != "undefined") && (selectedNode != null)) {
                 WebForm_RemoveClassName(selectedNode, data.selectedHyperLinkClass);
                 selectedNode = WebForm_GetParentByTagName(selectedNode, "TD");
                 WebForm_RemoveClassName(selectedNode, data.selectedClass);
@@ -166,7 +166,7 @@ function TreeView_ToggleNode(data, index, node, lineType, children) {
         if (children.style.display == "none") {
             children.style.display = "block";
             newExpandState = "e";
-            if ((typeof(img) != "undefined") && (img != null)) {
+            if ((typeof (img) != "undefined") && (img != null)) {
                 if (lineType == "l") {
                     img.src = data.images[15];
                 }
@@ -185,7 +185,7 @@ function TreeView_ToggleNode(data, index, node, lineType, children) {
         else {
             children.style.display = "none";
             newExpandState = "c";
-            if ((typeof(img) != "undefined") && (img != null)) {
+            if ((typeof (img) != "undefined") && (img != null)) {
                 if (lineType == "l") {
                     img.src = data.images[14];
                 }
@@ -202,8 +202,8 @@ function TreeView_ToggleNode(data, index, node, lineType, children) {
             }
         }
     }
-    catch(e) {}
-    data.expandState.value =  data.expandState.value.substring(0, index) + newExpandState + data.expandState.value.slice(index + 1);
+    catch (e) { }
+    data.expandState.value = data.expandState.value.substring(0, index) + newExpandState + data.expandState.value.slice(index + 1);
 }
 function TreeView_UnhoverNode(node) {
     if (!node.hoverClass) {

@@ -11,27 +11,27 @@ function WebForm_PostBackOptions(eventTarget, eventArgument, validation, validat
 function WebForm_DoPostBackWithOptions(options) {
     var validationResult = true;
     if (options.validation) {
-        if (typeof(Page_ClientValidate) == 'function') {
+        if (typeof (Page_ClientValidate) == 'function') {
             validationResult = Page_ClientValidate(options.validationGroup);
         }
     }
     if (validationResult) {
-        if ((typeof(options.actionUrl) != "undefined") && (options.actionUrl != null) && (options.actionUrl.length > 0)) {
+        if ((typeof (options.actionUrl) != "undefined") && (options.actionUrl != null) && (options.actionUrl.length > 0)) {
             theForm.action = options.actionUrl;
         }
         if (options.trackFocus) {
             var lastFocus = theForm.elements["__LASTFOCUS"];
-            if ((typeof(lastFocus) != "undefined") && (lastFocus != null)) {
-                if (typeof(document.activeElement) == "undefined") {
+            if ((typeof (lastFocus) != "undefined") && (lastFocus != null)) {
+                if (typeof (document.activeElement) == "undefined") {
                     lastFocus.value = options.eventTarget;
                 }
                 else {
                     var active = document.activeElement;
-                    if ((typeof(active) != "undefined") && (active != null)) {
-                        if ((typeof(active.id) != "undefined") && (active.id != null) && (active.id.length > 0)) {
+                    if ((typeof (active) != "undefined") && (active != null)) {
+                        if ((typeof (active.id) != "undefined") && (active.id != null) && (active.id.length > 0)) {
                             lastFocus.value = active.id;
                         }
-                        else if (typeof(active.name) != "undefined") {
+                        else if (typeof (active.name) != "undefined") {
                             lastFocus.value = active.name;
                         }
                     }
@@ -47,27 +47,27 @@ var __pendingCallbacks = new Array();
 var __synchronousCallBackIndex = -1;
 function WebForm_DoCallback(eventTarget, eventArgument, eventCallback, context, errorCallback, useAsync) {
     var postData = __theFormPostData +
-                "__CALLBACKID=" + WebForm_EncodeCallback(eventTarget) +
-                "&__CALLBACKPARAM=" + WebForm_EncodeCallback(eventArgument);
+        "__CALLBACKID=" + WebForm_EncodeCallback(eventTarget) +
+        "&__CALLBACKPARAM=" + WebForm_EncodeCallback(eventArgument);
     if (theForm["__EVENTVALIDATION"]) {
         postData += "&__EVENTVALIDATION=" + WebForm_EncodeCallback(theForm["__EVENTVALIDATION"].value);
     }
-    var xmlRequest,e;
+    var xmlRequest, e;
     try {
         xmlRequest = new XMLHttpRequest();
     }
-    catch(e) {
+    catch (e) {
         try {
             xmlRequest = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        catch(e) {
+        catch (e) {
         }
     }
     var setRequestHeaderMethodExists = true;
     try {
         setRequestHeaderMethodExists = (xmlRequest && xmlRequest.setRequestHeader);
     }
-    catch(e) {}
+    catch (e) { }
     var callback = new Object();
     callback.eventCallback = eventCallback;
     callback.context = context;
@@ -123,10 +123,10 @@ function WebForm_DoCallback(eventTarget, eventArgument, eventCallback, context, 
                 xmlRequestFrame.src = callBackFrameUrl;
             }
         }
-        catch(e) {}
+        catch (e) { }
         document.body.appendChild(xmlRequestFrame);
     }
-    var interval = window.setInterval(function() {
+    var interval = window.setInterval(function () {
         xmlRequestFrame = document.frames[callbackFrameID];
         if (xmlRequestFrame && xmlRequestFrame.document) {
             window.clearInterval(interval);
@@ -193,12 +193,12 @@ function WebForm_CallbackComplete() {
 function WebForm_ExecuteCallback(callbackObject) {
     var response = callbackObject.xmlRequest.responseText;
     if (response.charAt(0) == "s") {
-        if ((typeof(callbackObject.eventCallback) != "undefined") && (callbackObject.eventCallback != null)) {
+        if ((typeof (callbackObject.eventCallback) != "undefined") && (callbackObject.eventCallback != null)) {
             callbackObject.eventCallback(response.substring(1), callbackObject.context);
         }
     }
     else if (response.charAt(0) == "e") {
-        if ((typeof(callbackObject.errorCallback) != "undefined") && (callbackObject.errorCallback != null)) {
+        if ((typeof (callbackObject.errorCallback) != "undefined") && (callbackObject.errorCallback != null)) {
             callbackObject.errorCallback(response.substring(1), callbackObject.context);
         }
     }
@@ -218,7 +218,7 @@ function WebForm_ExecuteCallback(callbackObject) {
                     }
                     validationFieldElement.value = validationField;
                 }
-                if ((typeof(callbackObject.eventCallback) != "undefined") && (callbackObject.eventCallback != null)) {
+                if ((typeof (callbackObject.eventCallback) != "undefined") && (callbackObject.eventCallback != null)) {
                     callbackObject.eventCallback(response.substring(separatorIndex + validationFieldLength + 1), callbackObject.context);
                 }
             }
@@ -282,7 +282,7 @@ function WebForm_EncodeCallback(parameter) {
 }
 var __disabledControlArray = new Array();
 function WebForm_ReEnableControls() {
-    if (typeof(__enabledControlArray) == 'undefined') {
+    if (typeof (__enabledControlArray) == 'undefined') {
         return false;
     }
     var disabledIndex = 0;
@@ -294,7 +294,7 @@ function WebForm_ReEnableControls() {
         else {
             c = document.all[__enabledControlArray[i]];
         }
-        if ((typeof(c) != "undefined") && (c != null) && (c.disabled == true)) {
+        if ((typeof (c) != "undefined") && (c != null) && (c.disabled == true)) {
             c.disabled = false;
             __disabledControlArray[disabledIndex++] = c;
         }
@@ -312,7 +312,7 @@ function WebForm_SimulateClick(element, event) {
     if (element) {
         if (element.click) {
             element.click();
-        } else { 
+        } else {
             clickEvent = document.createEvent("MouseEvents");
             clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             if (!element.dispatchEvent(clickEvent)) {
@@ -332,9 +332,9 @@ function WebForm_FireDefaultButton(event, target) {
         var src = event.srcElement || event.target;
         if (src &&
             ((src.tagName.toLowerCase() == "input") &&
-             (src.type.toLowerCase() == "submit" || src.type.toLowerCase() == "button")) ||
+                (src.type.toLowerCase() == "submit" || src.type.toLowerCase() == "button")) ||
             ((src.tagName.toLowerCase() == "a") &&
-             (src.href != null) && (src.href != "")) ||
+                (src.href != null) && (src.href != "")) ||
             (src.tagName.toLowerCase() == "textarea")) {
             return true;
         }
@@ -347,7 +347,7 @@ function WebForm_FireDefaultButton(event, target) {
         }
         if (defaultButton) {
             return WebForm_SimulateClick(defaultButton, event);
-        } 
+        }
     }
     return true;
 }
@@ -388,7 +388,7 @@ function WebForm_SaveScrollPositionSubmit() {
         theForm.__SCROLLPOSITIONX.value = WebForm_GetScrollX();
         theForm.__SCROLLPOSITIONY.value = WebForm_GetScrollY();
     }
-    if ((typeof(this.oldSubmit) != "undefined") && (this.oldSubmit != null)) {
+    if ((typeof (this.oldSubmit) != "undefined") && (this.oldSubmit != null)) {
         return this.oldSubmit();
     }
     return true;
@@ -396,7 +396,7 @@ function WebForm_SaveScrollPositionSubmit() {
 function WebForm_SaveScrollPositionOnSubmit() {
     theForm.__SCROLLPOSITIONX.value = WebForm_GetScrollX();
     theForm.__SCROLLPOSITIONY.value = WebForm_GetScrollY();
-    if ((typeof(this.oldOnSubmit) != "undefined") && (this.oldOnSubmit != null)) {
+    if ((typeof (this.oldOnSubmit) != "undefined") && (this.oldOnSubmit != null)) {
         return this.oldOnSubmit();
     }
     return true;
@@ -408,7 +408,7 @@ function WebForm_RestoreScrollPosition() {
     else {
         window.scrollTo(theForm.__SCROLLPOSITIONX.value, theForm.__SCROLLPOSITIONY.value);
     }
-    if ((typeof(theForm.oldOnLoad) != "undefined") && (theForm.oldOnLoad != null)) {
+    if ((typeof (theForm.oldOnLoad) != "undefined") && (theForm.oldOnLoad != null)) {
         return theForm.oldOnLoad();
     }
     return true;
@@ -422,8 +422,8 @@ function WebForm_TextBoxKeyHandler(event) {
         else {
             target = event.srcElement;
         }
-        if ((typeof(target) != "undefined") && (target != null)) {
-            if (typeof(target.onchange) != "undefined") {
+        if ((typeof (target) != "undefined") && (target != null)) {
+            if (typeof (target.onchange) != "undefined") {
                 target.onchange();
                 event.cancelBubble = true;
                 if (event.stopPropagation) event.stopPropagation();
@@ -504,10 +504,10 @@ function WebForm_GetElementPosition(element) {
             result.y += parent.offsetTop;
             var parentTagName = parent.tagName.toLowerCase();
             if (parentTagName != "table" &&
-                parentTagName != "body" && 
-                parentTagName != "html" && 
-                parentTagName != "div" && 
-                parent.clientTop && 
+                parentTagName != "body" &&
+                parentTagName != "html" &&
+                parentTagName != "div" &&
+                parent.clientTop &&
                 parent.clientLeft) {
                 result.x += parent.clientLeft;
                 result.y += parent.clientTop;

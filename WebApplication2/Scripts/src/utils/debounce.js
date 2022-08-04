@@ -1,44 +1,43 @@
 import isBrowser from './isBrowser';
 
-const timeoutDuration = (function(){
-  const longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
-  for (let i = 0; i < longerTimeoutBrowsers.length; i += 1) {
-    if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
-      return 1;
+const timeoutDuration = (function () {
+    const longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
+    for (let i = 0; i < longerTimeoutBrowsers.length; i += 1) {
+        if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
+            return 1;
+        }
     }
-  }
-  return 0;
+    return 0;
 }());
 
 export function microtaskDebounce(fn) {
-  let called = false
-  return () => {
-    if (called) {
-      return
+    let called = false
+    return () => {
+        if (called) {
+            return
+        }
+        called = true
+        window.Promise.resolve().then(() => {
+            called = false
+            fn()
+        })
     }
-    called = true
-    window.Promise.resolve().then(() => {
-      called = false
-      fn()
-    })
-  }
 }
 
 export function taskDebounce(fn) {
-  let scheduled = false;
-  return () => {
-    if (!scheduled) {
-      scheduled = true;
-      setTimeout(() => {
-        scheduled = false;
-        fn();
-      }, timeoutDuration);
-    }
-  };
+    let scheduled = false;
+    return () => {
+        if (!scheduled) {
+            scheduled = true;
+            setTimeout(() => {
+                scheduled = false;
+                fn();
+            }, timeoutDuration);
+        }
+    };
 }
 
 const supportsMicroTasks = isBrowser && window.Promise
-
 
 /**
 * Create a debounced version of a method, that's asynchronously deferred
@@ -50,5 +49,5 @@ const supportsMicroTasks = isBrowser && window.Promise
 * @returns {Function}
 */
 export default (supportsMicroTasks
-  ? microtaskDebounce
-  : taskDebounce);
+    ? microtaskDebounce
+    : taskDebounce);
