@@ -5,34 +5,37 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h5>ASP.NET File Upload Control</h5>
+                <h5>Asp.Net FileUpload, Bootstrap Modal, and Toaster</h5>
             </div>
             <div class="card-body">
-                <%--<h5 class="card-title"> control</h5>--%>
-                <p class="card-text">The control is used to upload files to a Web Server. The control is a part of ASP.NET Framework and can be placed to a Web Form by simply dragging and dropping from Toolbox to a WebForm. The FileUpload control was introduced in ASP.NET 2.0.</p>
+                <p class="card-text">Instruction:  Click on File Upload to get started. </p>
                 <asp:Button ID="btnFileUpload" class="btn btn-primary" runat="server" Text="File Upload"
                     OnClick="btnFileUpload_Click"></asp:Button>
             </div>
             <div class="card-footer">
-                <h5>Upload Status</h5>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Filename</th>
-      <th scope="col">File Extension</th>
-      <th scope="col">File Size</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><asp:Literal ID="litFileName" runat="server"></asp:Literal></td>
-      <td><asp:Literal ID="litFileExtension" runat="server"></asp:Literal></td>
-      <td><asp:Literal ID="litFileSize" runat="server"></asp:Literal></td>
-    </tr>
-  </tbody>
-</table>
-                <asp:Label runat="server" CssClass="text-success" ID="StatusLabel" Text="Status " />
-
+                <h5>File Upload Status</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Filename</th>
+                            <th scope="col">Content Type</th>
+                            <th scope="col">File Size</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <asp:Literal ID="litFileName" runat="server"></asp:Literal></td>
+                            <td>
+                                <asp:Literal ID="litFileExtension" runat="server"></asp:Literal></td>
+                            <td>
+                                <asp:Literal ID="litFileSize" runat="server"></asp:Literal></td>                            
+                            <td>
+                                <asp:Literal ID="litDescription" runat="server"></asp:Literal></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -52,8 +55,27 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
+                                <asp:Label ID="lblFileUpload" runat="server" Text=""></asp:Label>
+                                <asp:FileUpload class="form-control-file" ID="fuAttachment" runat="server" aria-describedby="uploadHelp" placeholder="Enter email" />
+                                <small id="uploadHelp" class="form-text text-muted">Select a file to upload.</small>
+                                <asp:RequiredFieldValidator CssClass="text-danger" Display="Dynamic"
+                                    ID="rfvFileSelection"
+                                    runat="server"
+                                    ControlToValidate="fuAttachment"
+                                    ErrorMessage="Choose File is required" Enabled="false">
+                                </asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator CssClass="text-danger" Display="Dynamic" ControlToValidate="fuAttachment" ID="revFileType"
+                                    ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.PDF|.pdf)$" runat="server" ErrorMessage="Only PDF file is allowed for upload"></asp:RegularExpressionValidator>
+
+                                <asp:CustomValidator ID="cvFileUpload" runat="server" Display="Dynamic"
+                                    Text="*" ToolTip="FileSize should not exceed 4MB"
+                                    ErrorMessage="FileSize Exceeds the Limits.Please Try uploading smaller size files."
+                                    ControlToValidate="fuAttachment" OnServerValidate="ValidateMaxFilesize"
+                                     Enabled="false"></asp:CustomValidator>
+                            </div>
+                            <div class="form-group">
                                 <asp:Label ID="lblModalBody" runat="server">Description:</asp:Label>
-                                <asp:TextBox ID="txtDescription" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtDescription" runat="server" placeholder="enter text here"></asp:TextBox>
                                 <small id="uploadDescription" class="form-text text-muted">Enter a maximum 100 characters</small>
 
                                 <asp:RequiredFieldValidator ID="rfvDescription" CssClass="text-danger" ControlToValidate="txtDescription"
@@ -63,26 +85,7 @@
                                     ValidationExpression="^[\s\S]{0,100}$" runat="server"
                                     ErrorMessage="Maximum 100 characters allowed."></asp:RegularExpressionValidator>
                             </div>
-                            <div class="form-group">
-                                <asp:Label ID="lblFileUpload" runat="server" Text=""></asp:Label>
-                                <asp:FileUpload class="form-control-file" ID="fuDocument" runat="server" aria-describedby="uploadHelp" placeholder="Enter email" />
-                                <small id="uploadHelp" class="form-text text-muted">Choose a file on your computer to upload.</small>
-                                <asp:RequiredFieldValidator CssClass="text-danger"
-                                    ID="rfvFileSelection"
-                                    runat="server"
-                                    ControlToValidate="fuDocument"
-                                    ErrorMessage="Choose File is required" Enabled="false">
-                                </asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator CssClass="text-danger" Display="Dynamic" ControlToValidate="fuDocument" ID="revFileType"
-                                    ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.PDF|.pdf)$" runat="server" ErrorMessage="Only PDF file is allowed for upload"></asp:RegularExpressionValidator>
 
-                                <asp:CustomValidator ID="cvFileUpload" runat="server"
-                                    Text="*" ToolTip="FileSize should not exceed 4MB"
-                                    ErrorMessage="FileSize Exceeds the Limits.Please Try uploading smaller size files."
-                                    ControlToValidate="fuDocument"
-                                    OnServerValidate="checkfilesize" Enabled="false"></asp:CustomValidator>
-                                <asp:ValidationSummary ID="vsFileUpload" runat="server" />
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <asp:Button class="btn btn-primary" ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" />
