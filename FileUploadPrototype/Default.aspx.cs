@@ -105,38 +105,38 @@ namespace FileUploadPrototype
             //File Path and File Name
             string filePath = Server.MapPath(ConfigurationManager.AppSettings["UploadFilePath"]);
 
-            FileInfo FileName = new System.IO.FileInfo(filePath + "\\" + fileName);
-            FileStream myFile = new FileStream(filePath + "\\" + fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            FileInfo fileInfo = new FileInfo(filePath + "\\" + fileName);
+            FileStream fileStream = new FileStream(filePath + "\\" + fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
             //Reads file as binary values
-            BinaryReader _BinaryReader = new BinaryReader(myFile);
+            BinaryReader _BinaryReader = new BinaryReader(fileStream);
 
             //Check whether file exists in specified location
-            if (FileName.Exists)
+            if (fileInfo.Exists)
             {
                 try
                 {
                     long startBytes = 0;
-                    string lastUpdateTiemStamp = File.GetLastWriteTimeUtc(filePath).ToString("r");
-                    string _EncodedData = HttpUtility.UrlEncode(fileName, Encoding.UTF8) + lastUpdateTiemStamp;
+                    string fileDate = File.GetLastWriteTimeUtc(filePath).ToString("r");
+                    string encodedData = HttpUtility.UrlEncode(fileName, Encoding.UTF8) + fileDate;
 
                     Response.Clear();
                     Response.Buffer = false;
                     Response.AddHeader("Accept-Ranges", "bytes");
-                    Response.AppendHeader("ETag", "\"" + _EncodedData + "\"");
-                    Response.AppendHeader("Last-Modified", lastUpdateTiemStamp);
+                    Response.AppendHeader("ETag", "\"" + encodedData + "\"");
+                    Response.AppendHeader("Last-Modified", fileDate);
                     //Response.ContentType = "application/octet-stream";
                     Response.ContentType = litContentType.Text;
-                    Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName.Name);
-                    Response.AddHeader("Content-Length", (FileName.Length - startBytes).ToString());
+                    Response.AddHeader("Content-Disposition", "attachment;filename=" + fileInfo.Name);
+                    Response.AddHeader("Content-Length", (fileInfo.Length - startBytes).ToString());
                     Response.AddHeader("Connection", "Keep-Alive");
                     Response.ContentEncoding = Encoding.UTF8;
 
-                    //Send data
+                    //Read data
                     _BinaryReader.BaseStream.Seek(startBytes, SeekOrigin.Begin);
 
                     //Dividing the data in 1024 bytes package
-                    int maxCount = (int)Math.Ceiling((FileName.Length - startBytes + 0.0) / 1024);
+                    int maxCount = (int)Math.Ceiling((fileInfo.Length - startBytes + 0.0) / 1024);
 
                     //Download in block of 1024 bytes
                     int i;
@@ -158,7 +158,7 @@ namespace FileUploadPrototype
                 {
                     Response.End();
                     _BinaryReader.Close();
-                    myFile.Close();
+                    fileStream.Close();
                 }
             }
             else ScriptManager.RegisterStartupScript(this, GetType(),
