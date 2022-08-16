@@ -33,13 +33,13 @@ namespace FileUploadPrototype
         protected global::System.Web.UI.WebControls.Literal litFileName;
 
         /// <summary>
-        /// litFileExtension control.
+        /// litContentType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litFileExtension;
+        protected global::System.Web.UI.WebControls.Literal litContentType;
 
         /// <summary>
         /// litFileSize control.
@@ -58,6 +58,15 @@ namespace FileUploadPrototype
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litDescription;
+
+        /// <summary>
+        /// lnkDownload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDownload;
 
         /// <summary>
         /// upFileUploadModal control.
