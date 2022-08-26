@@ -1,5 +1,4 @@
-﻿using FileUploadPrototype.Models;
-using System;
+﻿using System;
 using System.Configuration;
 using System.IO;
 using System.Text;
@@ -13,93 +12,27 @@ namespace FileUploadPrototype
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            FileUpload.UploadEventHandler += new EventHandler(UploadEventHandler);
         }
 
-        protected void btnFileUpload_Click(object sender, EventArgs e)
+        void UploadEventHandler(object sender, EventArgs e)
         {
-            //set the modal form title via code behind
-            lblModalTitle.Text = "File Upload";
-            //enable validation of controls on the file upload form
-            SetFormValidation(true);
-            //display modal via code on the server side
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);
-            upFileUploadModal.Update();
+            ShowFileUploadStatus();
         }
 
-        protected void btnUpload_Click(object sender, EventArgs e)
+
+
+        private void ShowFileUploadStatus()
         {
-
-            if (fuAttachment.HasFile)
-            {
-                try
-                {
-
-                    var uploadFile = new FileUploadInfo();
-                    uploadFile.FileName = Path.GetFileName(fuAttachment.PostedFile.FileName);
-                    uploadFile.ContentType = fuAttachment.PostedFile.ContentType;
-                    uploadFile.ContentLength = fuAttachment.PostedFile.ContentLength;
-
-                    ShowFileUploadStatus(uploadFile);
-
-                    // get setting from web.config
-                    string uploadFilePath = ConfigurationManager.AppSettings["UploadFilePath"];
-
-                    fuAttachment.SaveAs(Server.MapPath(uploadFilePath) + uploadFile.FileName);
-                    // toaster to diplay success
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script> success('File uploaded')</script>", false);
-                    // reset validation controls
-                    SetFormValidation(false);
-                }
-                catch (Exception ex)
-                {
-                    // toaster to diplay error
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", "<script> err('File not uploaded')</script>", false);
-                    throw ex;
-                }
-            }
-        }
-
-        private void ShowFileUploadStatus(FileUploadInfo uploadFile)
-        {
-            litFileName.Text = uploadFile.FileName;
-            litContentType.Text = uploadFile.ContentType;
-            litFileSize.Text = uploadFile.ContentLength.ToString();
-            litDescription.Text = txtDescription.Text;
+            litFileName.Text = FileUpload.FileName;
+            litContentType.Text = FileUpload.ContentType;
+            litFileSize.Text = FileUpload.ContentLength.ToString();
+            litDescription.Text = FileUpload.Description;
             lnkDownload.Visible = true;
         }
 
-        protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            SetFormValidation(false);
-        }
 
-        protected void SetFormValidation(bool value)
-        {
-            rfvDescription.Enabled = value;
-            rfvFileSelection.Enabled = value;
-            revFileType.Enabled = value;
-            cvFileUpload.Enabled = value;
-        }
-
-        protected void ValidateMaxFilesize(object source, ServerValidateEventArgs args)
-        {
-            args.IsValid = false;
-            double filesize = fuAttachment.FileContent.Length;
-
-            // get setting from web.config
-            long maxFilesize = Convert.ToInt64((ConfigurationManager.AppSettings["MaxUploadFilesize"]));
-
-            if (filesize > maxFilesize)
-            {
-                args.IsValid = false;
-            }
-            else
-            {
-                args.IsValid = true;
-            }
-        }
-        //Function for File Download in ASP.Net in C# and 
-        //Tracking the status of success/failure of Download.
         private bool DownloadFile(string fileName)
         {
             //File Path and File Name
@@ -125,7 +58,6 @@ namespace FileUploadPrototype
                     Response.AddHeader("Accept-Ranges", "bytes");
                     Response.AppendHeader("ETag", "\"" + encodedData + "\"");
                     Response.AppendHeader("Last-Modified", fileDate);
-                    //Response.ContentType = "application/octet-stream";
                     Response.ContentType = litContentType.Text;
                     Response.AddHeader("Content-Disposition", "attachment;filename=" + fileInfo.Name);
                     Response.AddHeader("Content-Length", (fileInfo.Length - startBytes).ToString());
@@ -172,6 +104,11 @@ namespace FileUploadPrototype
         {
             bool isSuccess = DownloadFile(litFileName.Text);
 
+        }
+
+        protected void btnFileUpload_Click(object sender, EventArgs e)
+        {
+            FileUpload.ShowFileUpload();
         }
     }
 }
