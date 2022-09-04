@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FileUploadPrototype.Models;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Text;
@@ -25,11 +27,19 @@ namespace FileUploadPrototype
 
         private void ShowFileUploadStatus()
         {
-            litFileName.Text = FileUpload.FileName;
-            litContentType.Text = FileUpload.ContentType;
-            litFileSize.Text = FileUpload.ContentLength.ToString();
-            litDescription.Text = FileUpload.Description;
-            lnkDownload.Visible = true;
+            List<FileUploadInfo> lisFileUpload = new List<FileUploadInfo>();
+            var fileUploadInfo = new FileUploadInfo();
+            
+            fileUploadInfo.FileName = FileUpload.FileName;
+            fileUploadInfo.ContentType = FileUpload.ContentType;
+            fileUploadInfo.ContentLength = FileUpload.ContentLength;
+            fileUploadInfo.Description = FileUpload.Description;
+
+            lisFileUpload.Add(fileUploadInfo);
+
+            gridFiles.DataSource = lisFileUpload;
+            gridFiles.DataBind();
+
         }
 
 
@@ -58,7 +68,7 @@ namespace FileUploadPrototype
                     Response.AddHeader("Accept-Ranges", "bytes");
                     Response.AppendHeader("ETag", "\"" + encodedData + "\"");
                     Response.AppendHeader("Last-Modified", fileDate);
-                    Response.ContentType = litContentType.Text;
+                    Response.ContentType = "application/octect-stream";
                     Response.AddHeader("Content-Disposition", "attachment;filename=" + fileInfo.Name);
                     Response.AddHeader("Content-Length", (fileInfo.Length - startBytes).ToString());
                     Response.AddHeader("Connection", "Keep-Alive");
@@ -100,15 +110,19 @@ namespace FileUploadPrototype
         }
 
 
-        protected void lnkDownload_Click(object sender, EventArgs e)
-        {
-            bool isSuccess = DownloadFile(litFileName.Text);
-
-        }
-
         protected void btnFileUpload_Click(object sender, EventArgs e)
         {
             FileUpload.ShowFileUpload();
+        }
+
+        protected void lnkFileName_Click(object sender, EventArgs e)
+        {
+            //Create the object
+            LinkButton lnkbtn = sender as LinkButton;
+
+            //Get the value passed from gridview
+            string fileName = lnkbtn.CommandArgument.ToString();
+            bool isSuccess = DownloadFile(fileName);
         }
     }
 }

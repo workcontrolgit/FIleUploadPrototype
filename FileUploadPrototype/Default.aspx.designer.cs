@@ -24,49 +24,13 @@ namespace FileUploadPrototype
         protected global::System.Web.UI.WebControls.Button btnFileUpload;
 
         /// <summary>
-        /// litFileName control.
+        /// gridFiles control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litFileName;
-
-        /// <summary>
-        /// litContentType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litContentType;
-
-        /// <summary>
-        /// litFileSize control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litFileSize;
-
-        /// <summary>
-        /// litDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litDescription;
-
-        /// <summary>
-        /// lnkDownload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDownload;
+        protected global::System.Web.UI.WebControls.GridView gridFiles;
 
         /// <summary>
         /// FileUpload control.

@@ -16,7 +16,19 @@
             </div>
             <div class="card-footer">
                 <h5>File Upload Status</h5>
-                <table class="table">
+                <asp:GridView ID="gridFiles" runat="server" CssClass="table table-borderless" AutoGenerateColumns="False">
+                    <Columns>
+                        <asp:TemplateField HeaderText="File Name">
+                            <ItemTemplate>
+                                <asp:LinkButton  ID="lnkFileName" runat="server"  Text='<%# Eval("FileName") %>' CommandArgument='<%# Eval("FileName") %>' OnClick="lnkFileName_Click"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="ContentType" HeaderText="Content Type" />
+                        <asp:BoundField DataField="ContentLength" HeaderText="Content Length" />
+                        <asp:BoundField DataField="Description" HeaderText="Description" />
+                    </Columns>
+                </asp:GridView>
+<%--                <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Filename</th>
@@ -41,7 +53,7 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table>--%>
             </div>
         </div>
 
