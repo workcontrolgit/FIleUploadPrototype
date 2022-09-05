@@ -1,7 +1,6 @@
 ﻿using FileUploadPrototype.Models;
 using System;
 using System.Configuration;
-using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,91 +10,58 @@ namespace FileUploadPrototype
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            AttachmentUserControl.UploadEventHandler += new EventHandler(UploadEventHandler);
         }
+
+        void UploadEventHandler(object sender, EventArgs e)
+        {
+            // call the save attachment method in the file upload control
+            AttachmentUserControl.SaveAttachment();
+            // display the info of the attachment in the gridview
+            ShowUploadFiles();
+        }
+
+
+
+        private void ShowUploadFiles()
+        {
+            // init model
+            var fileUploadInfo = new AttachmentInfo();
+            // set value of model members with user control public properties
+            fileUploadInfo.FileName = AttachmentUserControl.FileName;
+            fileUploadInfo.ContentType = AttachmentUserControl.ContentType;
+            fileUploadInfo.ContentLength = AttachmentUserControl.ContentLength;
+            fileUploadInfo.Description = AttachmentUserControl.Description;
+
+            // init Attachment class to get list of files
+            Attachment attachment = new Attachment();
+            // bind grid view to list of files from attachment.Get method
+            gridFiles.DataSource = attachment.Get(fileUploadInfo);
+            gridFiles.DataBind();
+
+        }
+
 
         protected void btnFileUpload_Click(object sender, EventArgs e)
         {
-            //set the modal form title via code behind
-            lblModalTitle.Text = "File Upload";
-            //enable validation of controls on the file upload form
-            SetFormValidation(true);
-            //display modal via code on the server side
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);
-            upFileUploadModal.Update();
+            // prompt screen to upload file
+            AttachmentUserControl.ShowUploadModal();
         }
 
-        protected void btnUpload_Click(object sender, EventArgs e)
+        protected void lnkFileName_Click(object sender, EventArgs e)
         {
+            // Reference sender object as link button
+            LinkButton lnkbtn = sender as LinkButton;
 
-            if (fuAttachment.HasFile)
-            {
-                try
-                {
+            // Get the value passed from gridview
+            string fileName = lnkbtn.CommandArgument.ToString();
 
-                    var uploadFile = new FileUploadInfo();
-                    uploadFile.FileName = Path.GetFileName(fuAttachment.PostedFile.FileName);
-                    uploadFile.ContentType = fuAttachment.PostedFile.ContentType;
-                    uploadFile.ContentLength = fuAttachment.PostedFile.ContentLength;
-
-                    ShowFileUploadStatus(uploadFile);
-
-                    // get setting from web.config
-                    string uploadFilePath = ConfigurationManager.AppSettings["UploadFilePath"];
-
-                    fuAttachment.SaveAs(Server.MapPath(uploadFilePath) + uploadFile.FileName);
-                    // toaster to diplay success
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script> success('File uploaded')</script>", false);
-                    // reset validation controls
-                    SetFormValidation(false);
-                }
-                catch (Exception ex)
-                {
-                    // toaster to diplay error
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", "<script> err('File not uploaded')</script>", false);
-                    throw ex;
-                }
-            }
+            string serverFilePath = Server.MapPath(ConfigurationManager.AppSettings["UploadFilePath"] + "\\" + fileName);
+            //init instance of Attachment class
+            Attachment attachment = new Attachment();
+            // call the attachment download method to download the file
+            attachment.Download(Page, serverFilePath, fileName);
         }
-
-        private void ShowFileUploadStatus(FileUploadInfo uploadFile)
-        {
-            litFileName.Text = uploadFile.FileName;
-            litFileExtension.Text = uploadFile.ContentType;
-            litFileSize.Text = uploadFile.ContentLength.ToString();
-            litDescription.Text = txtDescription.Text;
-        }
-
-        protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            SetFormValidation(false);
-        }
-
-        protected void SetFormValidation(bool value)
-        {
-            rfvDescription.Enabled = value;
-            rfvFileSelection.Enabled = value;
-            revFileType.Enabled = value;
-            cvFileUpload.Enabled = value;
-        }
-
-        protected void ValidateMaxFilesize(object source, ServerValidateEventArgs args)
-        {
-            args.IsValid = false;
-            double filesize = fuAttachment.FileContent.Length;
-
-            // get setting from web.config
-            long maxFilesize = Convert.ToInt64((ConfigurationManager.AppSettings["MaxUploadFilesize"]));
-
-            if (filesize > maxFilesize)
-            {
-                args.IsValid = false;
-            }
-            else
-            {
-                args.IsValid = true;
-            }
-        }
-
-
     }
 }
