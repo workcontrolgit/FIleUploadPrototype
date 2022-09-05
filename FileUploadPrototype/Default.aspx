@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="FileUploadPrototype._Default" %>
 
-<%@ Register Src="~/Controls/UploadModal.ascx" TagPrefix="uc" TagName="FileUpload" %>
+<%@ Register Src="~/Controls/AttachmentModal.ascx" TagPrefix="uc" TagName="am" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -32,6 +32,6 @@
         </div>
 
     </div>
-    <uc:FileUpload runat="server" id="FileUploadControl" />
+    <uc:am runat="server" id="AttachmentUserControl" />
 
 </asp:Content>

@@ -114,7 +114,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
-    <Content Include="Controls\UploadModal.ascx" />
+    <Content Include="Controls\AttachmentModal.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -278,12 +278,12 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\UploadModal.ascx.cs">
-      <DependentUpon>UploadModal.ascx</DependentUpon>
+    <Compile Include="Controls\AttachmentModal.ascx.cs">
+      <DependentUpon>AttachmentModal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\UploadModal.ascx.designer.cs">
-      <DependentUpon>UploadModal.ascx</DependentUpon>
+    <Compile Include="Controls\AttachmentModal.ascx.designer.cs">
+      <DependentUpon>AttachmentModal.ascx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -296,7 +296,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IAttachment.cs" />
-    <Compile Include="Models\FileUploadInfo.cs" />
+    <Compile Include="Models\AttachmentInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

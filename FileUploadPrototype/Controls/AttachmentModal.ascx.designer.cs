@@ -42,13 +42,13 @@ namespace FileUploadPrototype.Controls
         protected global::System.Web.UI.WebControls.Label lblFileUpload;
 
         /// <summary>
-        /// fileAttachment control.
+        /// fuAttachment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fileAttachment;
+        protected global::System.Web.UI.WebControls.FileUpload fuAttachment;
 
         /// <summary>
         /// rfvFileSelection control.

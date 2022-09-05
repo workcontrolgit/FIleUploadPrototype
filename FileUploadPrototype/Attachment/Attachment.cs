@@ -2,7 +2,6 @@
 using FileUploadPrototype.Models;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -10,9 +9,9 @@ class Attachment : IAttachment
 {
 
     public void Add(FileUpload controlName, string filePath)
-    { 
+    {
         controlName.SaveAs(filePath);
-    }    
+    }
     public void Download(Page page, string serverFilePath, string fileName)
     {
         System.Net.WebClient client = new System.Net.WebClient();
@@ -26,9 +25,9 @@ class Attachment : IAttachment
         }
 
     }
-    public IEnumerable<FileUploadInfo> Get(FileUploadInfo fileUploadInfo)
+    public IEnumerable<AttachmentInfo> Get(AttachmentInfo fileUploadInfo)
     {
-        List<FileUploadInfo> lisFileUpload = new List<FileUploadInfo>();
+        List<AttachmentInfo> lisFileUpload = new List<AttachmentInfo>();
         lisFileUpload.Add(fileUploadInfo);
         return lisFileUpload;
     }

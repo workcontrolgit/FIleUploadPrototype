@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FileUploadPrototype.Models
+﻿namespace FileUploadPrototype.Models
 {
-    class FileUploadInfo
+    class AttachmentInfo
     {
         public string FileName { get; set; }
         public string ContentType { get; set; }

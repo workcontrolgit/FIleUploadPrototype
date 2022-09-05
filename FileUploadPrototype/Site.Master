@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - ASP.NET Prototype</title>
 
-    <%-- <link rel="stylesheet" type="text/css" href="Content/toastr.css" />
- <script type="text/javascript" src="Scripts/toastr.js"></script>--%>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -17,6 +15,9 @@
 
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <link rel="stylesheet" type="text/css" href="Content/toastr.css" />
+
 </head>
 <body>
     <form runat="server">
@@ -36,14 +37,11 @@
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
+                <asp:ScriptReference Path="~/Scripts/toastr.js" />
+                <asp:ScriptReference Path="~/Scripts/toastrimp.js" />
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
-        <asp:ContentPlaceHolder ID="cphHead" runat="server" />
-
-        <link rel="stylesheet" type="text/css" href="Content/toastr.css" />
-        <script type="text/javascript" src="Scripts/toastr.js"></script>
-        <script type="text/javascript" src="Scripts/toastrimp.js"></script>
 
         <div class="navbar navbar-expand-sm bg-light navbar-fixed-top">
             <div class="container">

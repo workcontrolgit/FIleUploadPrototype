@@ -1,11 +1,6 @@
-﻿using FileUploadPrototype.Interfaces;
-using FileUploadPrototype.Models;
+﻿using FileUploadPrototype.Models;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -16,11 +11,14 @@ namespace FileUploadPrototype
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            FileUploadControl.UploadEventHandler += new EventHandler(UploadEventHandler);
+            AttachmentUserControl.UploadEventHandler += new EventHandler(UploadEventHandler);
         }
 
         void UploadEventHandler(object sender, EventArgs e)
         {
+            // call the save attachment method in the file upload control
+            AttachmentUserControl.SaveAttachment();
+            // display the info of the attachment in the gridview
             ShowUploadFiles();
         }
 
@@ -28,17 +26,18 @@ namespace FileUploadPrototype
 
         private void ShowUploadFiles()
         {
-            var fileUploadInfo = new FileUploadInfo();
-            fileUploadInfo.FileName = FileUploadControl.FileName;
-            fileUploadInfo.ContentType = FileUploadControl.ContentType;
-            fileUploadInfo.ContentLength = FileUploadControl.ContentLength;
-            fileUploadInfo.Description = FileUploadControl.Description;
+            // init model
+            var fileUploadInfo = new AttachmentInfo();
+            // set value of model members with user control public properties
+            fileUploadInfo.FileName = AttachmentUserControl.FileName;
+            fileUploadInfo.ContentType = AttachmentUserControl.ContentType;
+            fileUploadInfo.ContentLength = AttachmentUserControl.ContentLength;
+            fileUploadInfo.Description = AttachmentUserControl.Description;
 
+            // init Attachment class to get list of files
             Attachment attachment = new Attachment();
-           
-
-
-            gridFiles.DataSource = attachment.Get(fileUploadInfo); 
+            // bind grid view to list of files from attachment.Get method
+            gridFiles.DataSource = attachment.Get(fileUploadInfo);
             gridFiles.DataBind();
 
         }
@@ -46,8 +45,8 @@ namespace FileUploadPrototype
 
         protected void btnFileUpload_Click(object sender, EventArgs e)
         {
-            // prompt user to screen to upload file
-            FileUploadControl.ShowUploadModal();
+            // prompt screen to upload file
+            AttachmentUserControl.ShowUploadModal();
         }
 
         protected void lnkFileName_Click(object sender, EventArgs e)
@@ -59,8 +58,9 @@ namespace FileUploadPrototype
             string fileName = lnkbtn.CommandArgument.ToString();
 
             string serverFilePath = Server.MapPath(ConfigurationManager.AppSettings["UploadFilePath"] + "\\" + fileName);
-
+            //init instance of Attachment class
             Attachment attachment = new Attachment();
+            // call the attachment download method to download the file
             attachment.Download(Page, serverFilePath, fileName);
         }
     }

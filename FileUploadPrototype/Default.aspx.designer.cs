@@ -33,12 +33,12 @@ namespace FileUploadPrototype
         protected global::System.Web.UI.WebControls.GridView gridFiles;
 
         /// <summary>
-        /// FileUploadControl control.
+        /// AttachmentUserControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::FileUploadPrototype.Controls.FileUpload FileUploadControl;
+        protected global::FileUploadPrototype.Controls.FileUpload AttachmentUserControl;
     }
 }
