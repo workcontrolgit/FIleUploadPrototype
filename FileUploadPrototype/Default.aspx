@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="FileUploadPrototype._Default" %>
 
-<%@ Register Src="~/Controls/FileUpload.ascx" TagPrefix="uc" TagName="FileUpload" %>
+<%@ Register Src="~/Controls/UploadModal.ascx" TagPrefix="uc" TagName="FileUpload" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 

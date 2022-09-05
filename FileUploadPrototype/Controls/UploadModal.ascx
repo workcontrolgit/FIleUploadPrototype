@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FileUpload.ascx.cs" Inherits="FileUploadPrototype.Controls.FileUpload" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UploadModal.ascx.cs" Inherits="FileUploadPrototype.Controls.FileUpload" %>
 
     <!-- Bootstrap Modal Dialog -->
     <asp:UpdatePanel ID="upFileUploadModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
