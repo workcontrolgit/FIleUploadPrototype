@@ -14,21 +14,21 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <asp:Label ID="lblFileUpload" runat="server" Text=""></asp:Label>
-                                <asp:FileUpload class="form-control-file" ID="fuAttachment" runat="server" aria-describedby="uploadHelp" placeholder="Enter email" />
+                                <asp:FileUpload class="form-control-file" ID="fileAttachment" runat="server" aria-describedby="uploadHelp" placeholder="Enter email" />
                                 <small id="uploadHelp" class="form-text text-muted">Select a file to upload.</small>
                                 <asp:RequiredFieldValidator CssClass="text-danger" Display="Dynamic"
                                     ID="rfvFileSelection"
                                     runat="server"
-                                    ControlToValidate="fuAttachment"
+                                    ControlToValidate="fileAttachment"
                                     ErrorMessage="Choose File is required" Enabled="false">
                                 </asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator CssClass="text-danger" Display="Dynamic" ControlToValidate="fuAttachment" ID="revFileType"
+                                <asp:RegularExpressionValidator CssClass="text-danger" Display="Dynamic" ControlToValidate="fileAttachment" ID="revFileType"
                                     ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.PDF|.pdf)$" runat="server" ErrorMessage="Only PDF file is allowed for upload"></asp:RegularExpressionValidator>
 
                                 <asp:CustomValidator ID="cvFileUpload" runat="server" Display="Dynamic"
                                     Text="*" ToolTip="FileSize should not exceed 4MB"
                                     ErrorMessage="FileSize Exceeds the Limits.Please Try uploading smaller size files."
-                                    ControlToValidate="fuAttachment" OnServerValidate="ValidateMaxFilesize"
+                                    ControlToValidate="fileAttachment" OnServerValidate="ValidateMaxFilesize"
                                      Enabled="false"></asp:CustomValidator>
                             </div>
                             <div class="form-group">

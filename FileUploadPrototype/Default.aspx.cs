@@ -1,4 +1,5 @@
-﻿using FileUploadPrototype.Models;
+﻿using FileUploadPrototype.Interfaces;
+using FileUploadPrototype.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,64 +16,52 @@ namespace FileUploadPrototype
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            FileUpload.UploadEventHandler += new EventHandler(UploadEventHandler);
+            FileUploadControl.UploadEventHandler += new EventHandler(UploadEventHandler);
         }
 
         void UploadEventHandler(object sender, EventArgs e)
         {
-            ShowFileUploadStatus();
+            ShowUploadFiles();
         }
 
 
 
-        private void ShowFileUploadStatus()
+        private void ShowUploadFiles()
         {
-            List<FileUploadInfo> lisFileUpload = new List<FileUploadInfo>();
             var fileUploadInfo = new FileUploadInfo();
-            //using (var fileUploadInfo = new FileUploadInfo())
-            //{
-            //}
-            fileUploadInfo.FileName = FileUpload.FileName;
-            fileUploadInfo.ContentType = FileUpload.ContentType;
-            fileUploadInfo.ContentLength = FileUpload.ContentLength;
-            fileUploadInfo.Description = FileUpload.Description;
+            fileUploadInfo.FileName = FileUploadControl.FileName;
+            fileUploadInfo.ContentType = FileUploadControl.ContentType;
+            fileUploadInfo.ContentLength = FileUploadControl.ContentLength;
+            fileUploadInfo.Description = FileUploadControl.Description;
 
-            lisFileUpload.Add(fileUploadInfo);
+            Attachment attachment = new Attachment();
+           
 
-            gridFiles.DataSource = lisFileUpload;
+
+            gridFiles.DataSource = attachment.Get(fileUploadInfo); 
             gridFiles.DataBind();
 
         }
 
 
-        private void DownloadAttachment(string fileName)
-        {
-            string path = Server.MapPath(ConfigurationManager.AppSettings["UploadFilePath"] + "\\" + fileName);
-            System.Net.WebClient client = new System.Net.WebClient();
-            Byte[] buffer = client.DownloadData(path);
-            if (buffer != null)
-            {
-                Response.ContentType = "application/octect-stream";
-                Response.AddHeader("Content-Disposition", "attachment;filename=" + fileName);
-                Response.AddHeader("content-length", buffer.Length.ToString());
-                Response.BinaryWrite(buffer);
-            }
-        }
-
         protected void btnFileUpload_Click(object sender, EventArgs e)
         {
-            FileUpload.ShowFileUpload();
+            // prompt user to screen to upload file
+            FileUploadControl.ShowUploadModal();
         }
 
         protected void lnkFileName_Click(object sender, EventArgs e)
         {
-            //Create the object
+            // Reference sender object as link button
             LinkButton lnkbtn = sender as LinkButton;
 
-            //Get the value passed from gridview
+            // Get the value passed from gridview
             string fileName = lnkbtn.CommandArgument.ToString();
 
-            DownloadAttachment(fileName);
+            string serverFilePath = Server.MapPath(ConfigurationManager.AppSettings["UploadFilePath"] + "\\" + fileName);
+
+            Attachment attachment = new Attachment();
+            attachment.Download(Page, serverFilePath, fileName);
         }
     }
 }

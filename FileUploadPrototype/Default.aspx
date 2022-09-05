@@ -28,36 +28,10 @@
                         <asp:BoundField DataField="Description" HeaderText="Description" />
                     </Columns>
                 </asp:GridView>
-<%--                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Filename</th>
-                            <th scope="col">Content Type</th>
-                            <th scope="col">File Size</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <asp:Literal ID="litFileName" runat="server"></asp:Literal></td>
-                            <td>
-                                <asp:Literal ID="litContentType" runat="server"></asp:Literal></td>
-                            <td>
-                                <asp:Literal ID="litFileSize" runat="server"></asp:Literal></td>                            
-                            <td>
-                                <asp:Literal ID="litDescription" runat="server"></asp:Literal></td>
-                            <td>
-                                <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click" Text="Download" Visible="false"></asp:LinkButton>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>--%>
             </div>
         </div>
 
     </div>
-    <uc:FileUpload runat="server" id="FileUpload" />
+    <uc:FileUpload runat="server" id="FileUploadControl" />
 
 </asp:Content>

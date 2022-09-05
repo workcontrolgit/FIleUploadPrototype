@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FileUploadPrototype.Models;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Web.UI;
@@ -6,13 +8,15 @@ using System.Web.UI.WebControls;
 
 namespace FileUploadPrototype.Controls
 {
-    public partial class FileUpload : System.Web.UI.UserControl
+    public partial class FileUpload : UserControl
     {
         #region Public Member  
         public string Description { get; set; }
         public string ContentType { get; set; }
         public int ContentLength { get; set; }
         public string FileName { get; set; }
+
+
         public event EventHandler UploadEventHandler;
         #endregion
         protected void Page_Load(object sender, EventArgs e)
@@ -35,7 +39,7 @@ namespace FileUploadPrototype.Controls
         protected void ValidateMaxFilesize(object source, ServerValidateEventArgs args)
         {
             args.IsValid = false;
-            double filesize = fuAttachment.FileContent.Length;
+            double filesize = fileAttachment.FileContent.Length;
 
             // get setting from web.config
             long maxFilesize = Convert.ToInt64((ConfigurationManager.AppSettings["MaxUploadFilesize"]));
@@ -53,22 +57,26 @@ namespace FileUploadPrototype.Controls
         protected void btnSave_Click(object sender, EventArgs e)
         {
 
-            if (fuAttachment.HasFile)
+            if (fileAttachment.HasFile)
             {
                 try
                 {
 
-                    //var uploadFile = new FileUploadInfo();
-                    FileName = Path.GetFileName(fuAttachment.PostedFile.FileName);
-                    ContentType = fuAttachment.PostedFile.ContentType;
-                    ContentLength = fuAttachment.PostedFile.ContentLength;
+                    //set public properties for parent page to consume
+                    FileName = Path.GetFileName(fileAttachment.PostedFile.FileName);
+                    ContentType = fileAttachment.PostedFile.ContentType;
+                    ContentLength = fileAttachment.PostedFile.ContentLength;
                     Description = txtDescription.Text.Trim();
 
 
-                    // get setting from web.config
+                    // get file upload setting from web.config
                     string uploadFilePath = ConfigurationManager.AppSettings["UploadFilePath"];
 
-                    fuAttachment.SaveAs(Server.MapPath(uploadFilePath) + FileName);
+                    string serverFilePath = Server.MapPath(uploadFilePath + FileName);
+                    // save file 
+                    Attachment attachment = new Attachment();
+                    attachment.Add(fileAttachment, serverFilePath);
+                    
                     // toaster to diplay success
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script> success('File uploaded')</script>", false);
                     // reset validation controls
@@ -87,7 +95,7 @@ namespace FileUploadPrototype.Controls
         }
 
         //public void btnFileUpload_Click(object sender, EventArgs e)
-        public void ShowFileUpload()
+        public void ShowUploadModal()
         {
             //set the modal form title via code behind
             lblModalTitle.Text = "File Upload";
