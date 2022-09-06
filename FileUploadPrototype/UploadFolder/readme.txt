@@ -1,0 +1,1 @@
+This is the file upload folder.  The path to this folder is set in the web.config.
