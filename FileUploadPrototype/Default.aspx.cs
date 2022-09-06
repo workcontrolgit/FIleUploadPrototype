@@ -17,7 +17,7 @@ namespace FileUploadPrototype
         void UploadEventHandler(object sender, EventArgs e)
         {
             // call the save attachment method in the file upload control
-            AttachmentUserControl.SaveAttachment();
+            // AttachmentUserControl.SaveAttachment();
             // display the info of the attachment in the gridview
             ShowUploadFiles();
         }

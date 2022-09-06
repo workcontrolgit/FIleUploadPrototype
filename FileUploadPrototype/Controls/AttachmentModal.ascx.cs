@@ -55,7 +55,9 @@ namespace FileUploadPrototype.Controls
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            // raise event the user clicking on Upload button 
+            // save attachment
+            SaveAttachment();
+            // raise event to notify parent page to process file  
             UploadEventHandler(sender, e);
         }
 
